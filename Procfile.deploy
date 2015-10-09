@@ -1,1 +1,1 @@
-app: /opt/rbenv/shims/bundle exec passenger start
+app: /opt/rbenv/shims/bundle exec passenger start --port $PASSENGER_TEST_APP_PORT
