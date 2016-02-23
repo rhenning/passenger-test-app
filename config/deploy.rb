@@ -23,6 +23,7 @@ set :deploy_to, '/var/www/weblinc_direct'
 set :pty, true
 
 # Default value for :linked_files is []
+
 set :linked_files, fetch(:linked_files, []).push('config/mongoid.yml', 'config/secrets.yml')
 
 # Default value for linked_dirs is []
@@ -40,6 +41,17 @@ set :rbenv_path, '/opt/rbenv'
 
 set :passenger_restart_with_touch, true
 
+require 'sshkit/backends/netssh_global'
+
+set(:sshkit_backend, proc {
+  SSHKit::Backend::NetsshGlobal.tap do |backend|
+    backend.configure do |config|
+      config.owner        = 'webapp'
+      config.directory    = '/home/webapp'
+      config.shell        = 'bash -l'
+    end
+  end
+})
 
 namespace :deploy do
 
@@ -51,7 +63,7 @@ namespace :deploy do
 
   before :restart, :create_date do
     on roles(:web) do
-      execute "date > #{current_path}/public/date.txt"
+      execute :date, "> #{current_path}/public/date.txt"
     end
   end
 

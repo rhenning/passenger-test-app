@@ -45,9 +45,14 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  gem 'capistrano', '~> 3.1'
+  gem 'capistrano', '~> 3.4',
+    git: 'https://github.com/capistrano/capistrano.git',
+    ref: '8f9f0f02dd01d4c0d904f2294b55f806af873f4a'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-passenger'
+
+  gem 'sshkit-backends-netssh_global',
+    git: 'https://github.com/FundingCircle/sshkit-backends-netssh_global.git'
 end
 
